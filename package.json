@@ -1,0 +1,35 @@
+{
+  "author": "Dario Casertano",
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "lodash.has": "^4.5.2",
+    "lodash.keys": "^4.2.0",
+    "lodash.set": "^4.3.2",
+    "lodash.unset": "^4.5.2"
+  },
+  "description": "A lightweight in-memory storage library with namespace support for easy data management and isolation in browser environments.",
+  "devDependencies": {
+    "@types/lodash": "^4.17.13",
+    "typescript": "^5.7.2"
+  },
+  "keywords": [
+    "memory",
+    "storage",
+    "namespace",
+    "browser",
+    "in-memory",
+    "data-management",
+    "local-storage",
+    "session-storage",
+    "persistent-storage",
+    "key-value-store"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "name": "memoryx",
+  "scripts": {
+    "build": "tsc --build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}
