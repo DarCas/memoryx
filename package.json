@@ -1,5 +1,8 @@
 {
-  "author": "Dario Casertano",
+  "author": "Dario Casertano <dario@casertano.name>",
+  "bugs": {
+    "url": "https://github.com/DarCas/memoryx/issues"
+  },
   "dependencies": {
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
@@ -12,6 +15,7 @@
     "@types/lodash": "^4.17.13",
     "typescript": "^5.7.2"
   },
+  "homepage": "https://github.com/DarCas/memoryx",
   "keywords": [
     "memory",
     "storage",
@@ -27,6 +31,10 @@
   "license": "MIT",
   "main": "dist/index.js",
   "name": "memoryx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DarCas/memoryx"
+  },
   "scripts": {
     "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
