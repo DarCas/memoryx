@@ -15,6 +15,9 @@
     "@types/lodash": "^4.17.13",
     "typescript": "^5.7.2"
   },
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/DarCas/memoryx",
   "keywords": [
     "memory",
