@@ -1,6 +1,10 @@
 
 # MemoryX
 
+[![npm version](https://badge.fury.io/js/@darcas%2Fmemoryx.svg)](https://badge.fury.io/js/@darcas%2Fmemoryx)
+![NPM License](https://img.shields.io/npm/l/%40darcas%2Fmemoryx)
+![NPM Downloads](https://img.shields.io/npm/dy/%40darcas%2Fmemoryx)
+
 MemoryX is a simple, lightweight, and browser-based key-value storage utility. It allows you to store, retrieve, and manage data in a global memory object that is scoped by a namespace. This enables you to organize your data into isolated storage areas within the browser.
 
 ## Features

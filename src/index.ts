@@ -17,7 +17,7 @@ declare global {
     }
 }
 
-class MemoryX {
+export class MemoryX {
     readonly namespace: string
 
     constructor(namespace: string = '_global') {
