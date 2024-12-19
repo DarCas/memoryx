@@ -15,19 +15,19 @@ MemoryX is a simple, lightweight, and browser-based key-value storage utility. I
 To install `MemoryX` in your project, run the following npm command:
 
 ```bash
-npm install memoryx
+npm install @darcas/memoryx
 ```
 
 Or, if you're using yarn:
 
 ```bash
-yarn add memoryx
+yarn add @darcas/memoryx
 ```
 
 ## Usage
 
 ```ts
-import MemoryX from 'memoryx';
+import MemoryX from '@darcas/memoryx';
 
 // Create a new instance with a custom namespace (default is '_global')
 const memory = new MemoryX('myNamespace');
@@ -131,7 +131,7 @@ const namespaces = MemoryX.namespaces(); // ['_global', 'myNamespace']
 Here is a full example:
 
 ```ts
-import MemoryX from 'memoryx';
+import MemoryX from '@darcas/memoryx';
 
 // Create a new instance
 const memory = new MemoryX('myNamespace');
