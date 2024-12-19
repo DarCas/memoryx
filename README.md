@@ -31,7 +31,7 @@ yarn add @darcas/memoryx
 ## Usage
 
 ```ts
-import MemoryX from '@darcas/memoryx';
+import { MemoryX } from '@darcas/memoryx';
 
 // Create a new instance with a custom namespace (default is '_global')
 const memory = new MemoryX('myNamespace');
@@ -135,7 +135,7 @@ const namespaces = MemoryX.namespaces(); // ['_global', 'myNamespace']
 Here is a full example:
 
 ```ts
-import MemoryX from '@darcas/memoryx';
+import { MemoryX } from '@darcas/memoryx';
 
 // Create a new instance
 const memory = new MemoryX('myNamespace');
