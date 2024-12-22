@@ -13,7 +13,7 @@ import unset from 'lodash/unset'
 
 declare global {
     interface Window {
-        _oOMemoryXOo_?: Dictionary<Dictionary<any>>
+        _oOMemoryXOo_?: Dictionary<Dictionary<unknown>>
     }
 }
 
@@ -40,14 +40,14 @@ export class MemoryX {
         return keys(window._oOMemoryXOo_)
     }
 
-    get<T = never>(
+    get<T = unknown>(
         path: PropertyPath,
         def: T | null = null,
     ): T {
         return get(this.storage, path, def) as T
     }
 
-    set<T = never>(
+    set<T = unknown>(
         path: PropertyPath,
         value: T,
     ): void {
@@ -62,7 +62,7 @@ export class MemoryX {
         return has(this.storage, path)
     }
 
-    protected get storage(): Dictionary<any> {
+    protected get storage(): Dictionary<unknown> {
         return window._oOMemoryXOo_![ this.namespace ]
     }
 }

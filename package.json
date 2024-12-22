@@ -1,5 +1,8 @@
 {
-  "author": "Dario Casertano <dario@casertano.name>",
+  "author": {
+    "email": "dario@casertano.name",
+    "name": "Dario Casertano (DarCas)"
+  },
   "bugs": {
     "url": "https://github.com/DarCas/memoryx/issues"
   },
@@ -20,16 +23,16 @@
   ],
   "homepage": "https://github.com/DarCas/memoryx",
   "keywords": [
-    "memory",
-    "storage",
-    "namespace",
     "browser",
-    "in-memory",
     "data-management",
+    "in-memory",
+    "key-value-store",
     "local-storage",
-    "session-storage",
+    "memory",
+    "namespace",
     "persistent-storage",
-    "key-value-store"
+    "session-storage",
+    "storage"
   ],
   "license": "MIT",
   "main": "dist/index.js",
@@ -43,5 +46,5 @@
     "deploy": "npm run build && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.2"
+  "version": "2.0.0"
 }
