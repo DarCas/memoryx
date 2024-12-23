@@ -1,7 +1,7 @@
 /**
  * @author      Dario Casertano <dario@casertano.name>
  * @copyright   Copyright (c) 2024 Casertano Dario – All rights reserved.
- * @license     Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International.
+ * @license     MIT
  */
 
 import { type Dictionary, type PropertyPath } from 'lodash'

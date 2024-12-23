@@ -73,7 +73,7 @@ Clears all the data stored under the current namespace.
 memory.destroy();
 ```
 
-### `get<T = never>(path: PropertyPath, def: T | null = null): T`
+### `get<T = unknown>(path: PropertyPath, def: T | null = null): T`
 
 Retrieves the value stored at the specified `path`. If the path doesn't exist, it returns the provided default value (or `null` if no default is provided).
 
@@ -87,7 +87,7 @@ Retrieves the value stored at the specified `path`. If the path doesn't exist, i
 const name = memory.get('user.name', 'Default Name'); // 'John Doe' or 'Default Name'
 ```
 
-### `set<T = never>(path: PropertyPath, value: T): void`
+### `set<T = unknown>(path: PropertyPath, value: T): void`
 
 Stores a value at the specified `path`.
 
@@ -166,4 +166,8 @@ If you'd like to contribute to the project, feel free to fork it and create a pu
 
 ## License
 
-MemoryX is licensed under the MIT License. See the LICENSE file for more information.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Made with ❤️ by [Dario Casertano (DarCas)](https://github.com/DarCas).

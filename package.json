@@ -16,6 +16,7 @@
   "description": "A lightweight in-memory storage library with namespace support for easy data management and isolation in browser environments.",
   "devDependencies": {
     "@types/lodash": "^4.17.13",
+    "terser": "^5.37.0",
     "typescript": "^5.7.2"
   },
   "files": [
@@ -27,24 +28,24 @@
     "data-management",
     "in-memory",
     "key-value-store",
-    "local-storage",
     "memory",
     "namespace",
     "persistent-storage",
-    "session-storage",
-    "storage"
+    "storage",
+    "typescript"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/index.min.js",
   "name": "@darcas/memoryx",
   "repository": {
     "type": "git",
     "url": "https://github.com/DarCas/memoryx"
   },
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
+    "build": "rm -rf ./dist && tsc && npm run minify",
     "deploy": "npm run build && npm publish",
+    "minify": "terser dist/index.js --source-map -c -m -o dist/index.min.js && unlink dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
