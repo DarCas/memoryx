@@ -47,5 +47,6 @@
     "minify": "terser dist/index.js --source-map -c -m -o dist/index.min.js && unlink dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "2.0.1"
+  "types": "dist/index.d.ts",
+  "version": "2.0.2"
 }
