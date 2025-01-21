@@ -1,6 +1,6 @@
 /**
  * @author      Dario Casertano <dario@casertano.name>
- * @copyright   Copyright (c) 2024 Casertano Dario – All rights reserved.
+ * @copyright   Copyright (c) 2024-present Casertano Dario – All rights reserved.
  * @license     MIT
  */
 
@@ -58,7 +58,7 @@ export class MemoryX {
         unset(this.storage, path)
     }
 
-    has(path: string): boolean {
+    has(path: PropertyPath): boolean {
         return has(this.storage, path)
     }
 
