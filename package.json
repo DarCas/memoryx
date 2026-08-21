@@ -1,23 +1,20 @@
 {
   "author": {
     "email": "dario@casertano.name",
-    "name": "Dario Casertano (DarCas)"
+    "name": "Dario Casertano (DarCas)",
+    "url": "https://casertano.name"
   },
   "bugs": {
     "url": "https://github.com/DarCas/memoryx/issues"
   },
-  "dependencies": {
-    "lodash.get": "^4.4.2",
-    "lodash.has": "^4.5.2",
-    "lodash.keys": "^4.2.0",
-    "lodash.set": "^4.3.2",
-    "lodash.unset": "^4.5.2"
-  },
   "description": "A lightweight in-memory storage library with namespace support for easy data management and isolation in browser environments.",
   "devDependencies": {
     "@types/lodash": "^4.17.13",
+    "esbuild": "^0.25.0",
+    "lodash": "^4.17.21",
     "terser": "^5.37.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
   },
   "files": [
     "dist"
@@ -30,23 +27,24 @@
     "key-value-store",
     "memory",
     "namespace",
-    "persistent-storage",
     "storage",
     "typescript"
   ],
   "license": "MIT",
   "main": "dist/index.min.js",
+  "type": "module",
   "name": "@darcas/memoryx",
   "repository": {
     "type": "git",
     "url": "https://github.com/DarCas/memoryx"
   },
   "scripts": {
-    "build": "rm -rf ./dist && tsc && npm run minify",
+    "build": "rm -rf ./dist && npm run compile && npm run minify",
+    "compile": "esbuild src/index.ts --bundle --format=esm --target=es2015 --outfile=dist/index.js && tsc",
     "deploy": "npm run build && npm publish",
     "minify": "terser dist/index.js --source-map -c -m -o dist/index.min.js && unlink dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "types": "dist/index.d.ts",
-  "version": "2.0.3"
+  "version": "2.1.0"
 }

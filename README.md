@@ -1,10 +1,11 @@
 
 # MemoryX
 
-![NPM Last Update](https://img.shields.io/npm/last-update/%40darcas%2Fmemoryx)
-![NPM Version](https://img.shields.io/npm/v/%40darcas%2Fmemoryx)
-![NPM Downloads](https://img.shields.io/npm/dy/%40darcas%2Fmemoryx)
-![NPM License](https://img.shields.io/npm/l/%40darcas%2Fmemoryx)
+![NPM Last Update](https://img.shields.io/npm/last-update/%40darcas%2Fmemoryx?style=for-the-badge)
+![NPM Version](https://img.shields.io/npm/v/%40darcas%2Fmemoryx?style=for-the-badge)
+![NPM Downloads](https://img.shields.io/npm/dy/%40darcas%2Fmemoryx?style=for-the-badge)
+
+![NPM License](https://img.shields.io/npm/l/%40darcas%2Fmemoryx?style=for-the-badge)
 
 MemoryX is a simple, lightweight, and browser-based key-value storage utility. It allows you to store, retrieve, and manage data in a global memory object that is scoped by a namespace. This enables you to organize your data into isolated storage areas within the browser.
 
@@ -123,13 +124,66 @@ Checks if a value exists at the specified `path`.
 const exists = memory.has('user.name'); // true or false
 ```
 
-### `namespaces(): string[]`
+### `namespaces`
 
-Returns an array of all namespaces currently stored in memory.
+Static getter that returns an array of all namespaces currently stored in memory.
 
 ```ts
-const namespaces = MemoryX.namespaces(); // ['_global', 'myNamespace']
+const namespaces = MemoryX.namespaces; // ['_global', 'myNamespace']
 ```
+
+### `subscribe(path | '*', listener): () => void`
+
+Subscribes a listener to changes at the specified `path`. The listener is also notified when any descendant path changes. Use the `'*'` wildcard to listen to every change in the namespace. Returns an unsubscribe function.
+
+```ts
+const unsubscribe = memory.subscribe('user', (value, previous) => {
+    console.log('changed:', value, 'was:', previous);
+});
+
+memory.set('user.name', 'Bob'); // listener fires
+unsubscribe(); // stop listening
+```
+
+### `all(): Record<string, unknown>`
+
+Returns a shallow copy of all data in the current namespace.
+
+### `keys(): string[]`
+
+Returns the top-level keys of the current namespace.
+
+### `merge(path, patch): void`
+
+Deep-merges a plain object into the value stored at `path`.
+
+```ts
+memory.merge('user', { age: 31 });
+```
+
+### `push(path, value): void`
+
+Appends a value to the array stored at `path` (creates the array if missing).
+
+### `inc(path, by?): void` / `dec(path, by?): void`
+
+Increments/decrements the numeric value at `path` by `by` (default `1`). Missing or non-numeric values are treated as `0`.
+
+### `snapshot(): string` / `restore(json): void`
+
+Exports the namespace as a JSON string and restores it back. `restore` replaces the entire namespace content and throws a `TypeError` on invalid input.
+
+## Server-side rendering
+
+MemoryX resolves its global root from `window` when available and falls back to `globalThis`, so it can be used safely in Node/SSR environments.
+
+## Testing
+
+```bash
+npm test
+```
+
+The test suite (Vitest) includes differential tests against lodash to guarantee that path resolution behaves exactly like the lodash functions it replaced.
 
 ## Example
 
@@ -160,13 +214,47 @@ memory.del('user.email');
 memory.destroy();
 ```
 
+## Behavior notes and limitations
+
+Things worth knowing before relying on MemoryX in production:
+
+### Reactivity
+
+- Notifications are **synchronous** and fire **once per mutation**: three consecutive `set()` calls trigger three notifications. There is no built-in batching, debounce, or async mode — wrap multi-write sequences in your own logic if you need coalescing.
+- Listeners run after the mutation is applied; `previous` is the value held immediately before that single mutation.
+- Subscriptions are **per instance** (per namespace): an instance does not observe writes made through a different instance of another namespace.
+- A listener that throws propagates the exception to the caller of `set`/`del`/etc. Do not let listeners throw.
+
+### Values and serialization
+
+- The store holds values **by reference**: `all()` returns a shallow copy, so mutating a nested object obtained from `get()` mutates the store. Copy explicitly if you need isolation.
+- `snapshot()`/`restore()` use JSON: `Map`, `Set`, functions, `undefined`, and class instances are lost or degraded (`NaN` → `null`, `Date` → ISO string). Round-trip only JSON-safe data.
+- Storing `undefined` via `set(path, undefined)` creates the path but `get()` cannot distinguish it from a missing path (both return the default). Use `has()` for existence checks.
+
+### Lifecycle
+
+- Instances of the same namespace **share state**, including across separate bundles on the same page.
+- `destroy()` removes the namespace from the store. Every instance of that namespace is affected (they all read the same store), and each one lazily recreates it on its next access.
+- `restore()` replaces the whole namespace content and notifies every subscriber.
+
+### Path engine
+
+- Path resolution is a verified drop-in replacement for lodash's `get`/`set`/`has`/`unset` (differential-tested against real lodash), including array-vs-object intermediate creation and sparse-array `has()`.
+- One intentional divergence: writing to any path containing `__proto__`, `constructor`, or `prototype` **aborts the entire operation** (lodash would skip only the offending segment). This guards against prototype pollution.
+
+### Environment
+
+- ESM-only package (`"type": "module"`). CommonJS consumers must use dynamic `import()`.
+- Output targets ES2015: no IE11 support.
+- In SSR/Node the shared store lives on `globalThis`: state is per-process and not shared across workers or server instances.
+
 ## Contributing
 
 If you'd like to contribute to the project, feel free to fork it and create a pull request. Please ensure that your changes are well-tested and properly documented.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
 
 ---
 
